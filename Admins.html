@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAPZ-HUB | Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff4757;
+            --dark: #1e1e24;
+            --light-bg: #f8f9fa;
+            --gray: #747d8c;
+            --card-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header h1 i {
+            color: var(--primary);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #f1f2f6;
+            font-weight: bold;
+        }
+
+        .price-badge {
+            font-weight: bold;
+            color: #2ed573;
+        }
+
+        .items-list {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .btn-refresh {
+            background: var(--dark);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .btn-refresh:hover {
+            background: var(--primary);
+        }
+
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1><i class="fas fa-shield-alt"></i> CHAPZ-HUB Admin Dashboard</h1>
+        <button class="btn-refresh" onclick="loadAdminData()"><i class="fas fa-sync-alt"></i> Refresh Data</button>
+    </div>
+
+    <div class="grid-container">
+        <!-- Orders Table -->
+        <div class="card">
+            <h2>Recent Orders (<span id="order-count">0</span>)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Purchased Items</th>
+                        <th>Total</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-tbody">
+                    <tr><td colspan="4">Loading orders...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Subscribers Table -->
+        <div class="card">
+            <h2>Subscribers (<span id="sub-count">0</span>)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Joined</th>
+                    </tr>
+                </thead>
+                <tbody id="subs-tbody">
+                    <tr><td colspan="3">Loading subscribers...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function loadAdminData() {
+            try {
+                // Fetch Orders
+                const ordersRes = await fetch('/api/admin/orders');
+                const orders = await ordersRes.json();
+                
+                const ordersTbody = document.getElementById('orders-tbody');
+                document.getElementById('order-count').textContent = orders.length;
+                
+                if (orders.length === 0) {
+                    ordersTbody.innerHTML = '<tr><td colspan="4">No orders placed yet.</td></tr>';
+                } else {
+                    ordersTbody.innerHTML = orders.map(order => {
+                        let parsedItems = [];
+                        try {
+                            parsedItems = JSON.parse(order.items);
+                        } catch (e) {
+                            parsedItems = [];
+                        }
+                        
+                        const itemNames = parsedItems.map(i => i.name).join(', ');
+                        const orderDate = new Date(order.created_at).toLocaleString();
+
+                        return `
+                            <tr>
+                                <td>#${order.id}</td>
+                                <td><div class="items-list">${itemNames}</div></td>
+                                <td class="price-badge">$${order.total_price.toFixed(2)}</td>
+                                <td>${order.created_at}</td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+
+                // Fetch Subscribers
+                const subsRes = await fetch('/api/admin/subscribers');
+                const subs = await subsRes.json();
+                
+                const subsTbody = document.getElementById('subs-tbody');
+                document.getElementById('sub-count').textContent = subs.length;
+
+                if (subs.length === 0) {
+                    subsTbody.innerHTML = '<tr><td colspan="3">No subscribers yet.</td></tr>';
+                } else {
+                    subsTbody.innerHTML = subs.map(sub => `
+                        <tr>
+                            <td>#${sub.id}</td>
+                            <td>${sub.email}</td>
+                            <td>${sub.subscribed_at}</td>
+                        </tr>
+                    `).join('');
+                }
+
+            } catch (err) {
+                console.error('Error fetching admin data:', err);
+            }
+        }
+
+        // Fetch on initial load
+        document.addEventListener('DOMContentLoaded', loadAdminData);
+    </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAPZ-HUB | Modern Apparel & Fashion</title>
+    
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="mywork.css">
+</head>
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <p>🔥 Free Delivery on orders over $50! Use Code: <strong>CHAPZ10</strong></p>
+    </div>
+    
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">
+            <h1><i class="fas fa-shirt"></i>CHAPZ-HUB</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li class="dropdown">
+                    <a href="#products">Product <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                    <ul class="submenu">
+                        <li><a href="#products">Mens Clothing</a></li>
+                        <li><a href="#products">Womens Clothing</a></li>
+                        <li><a href="#products">Footwear</a></li>
+                        <li><a href="#products">Mens Underwear</a></li>
+                        <li><a href="#products">Womens Underwear</a></li>
+                    </ul>
+                </li>
+                <li><a href="#products">Shop</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <button class="cart-btn" id="cart-toggle">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count">0</span>
+            </button>
+            <button class="signin" onclick="window.location.href='login.html'">SIGN IN</button>
+            <button class="get-started">Get Started</button>
+        </div>
+    </header>
+
+    <!-- Slide-out Shopping Cart Drawer --> 
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Shopping Cart</h2>
+            <button class="close-cart" id="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p class="empty-msg">Your cart is currently empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-text">
+            <h1 class="animate slide-down">NO <span class="hero-text-seperate">FASHION NO</span> MOTION</h1>
+            <p class="animate slide-down delay-2">Upgrade your wardrobe with premium quality apparel designed for comfort, style, and everyday motion. Explore the latest street trends and original drops.</p>
+            <div class="buttons animate fade-up delay-4">
+                <a href="#products" class="btn-signup">Shop Collection</a>
+                <a href="#about" class="btn-explore">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products">
+        <div class="section-title">
+            <h2>Featured Products</h2>
+            <p>Handpicked essentials trending this week</p>
+        </div>
+
+        <div class="product-grid">
+            <!-- Product Card 1 -->
+            <div class="product-card">
+                <span class="badge">Hot</span>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800" alt="Roundneck T-Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="category">Mens Clothing</span>
+                    <h3>Classic White Roundneck</h3>
+                    <div class="price-row">
+                        <span class="price">$25.00</span>
+                        <button class="add-to-cart-btn" data-name="Classic White Roundneck" data-price="25.00"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=800" alt="Casual Hoodie">
+                </div>
+                <div class="product-info">
+                    <span class="category">Outerwear</span>
+                    <h3>Streetwear Oversized Hoodie</h3>
+                    <div class="price-row">
+                        <span class="price">$55.00</span>
+                        <button class="add-to-cart-btn" data-name="Streetwear Oversized Hoodie" data-price="55.00"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="product-card">
+                <span class="badge sale">Sale</span>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <span class="category">Footwear</span>
+                    <h3>Air Motion Sneakers</h3>
+                    <div class="price-row">
+                        <span class="price">$80.00</span>
+                        <button class="add-to-cart-btn" data-name="Air Motion Sneakers" data-price="80.00"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800" alt="Black Graphic Tee">
+                </div>
+                <div class="product-info">
+                    <span class="category">Mens Clothing</span>
+                    <h3>CHAPZ Signature Black Tee</h3>
+                    <div class="price-row">
+                        <span class="price">$30.00</span>
+                        <button class="add-to-cart-btn" data-name="CHAPZ Signature Black Tee" data-price="30.00"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="about-div">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800" alt="Store Interior">
+            </div>
+            <div class="about-description">
+                <h1 id="about-desc-heading">Enrich your cupboard with a touch of authentic style</h1>
+                <p>CHAPZ-HUB was built for creators, trendsetters, and fashion lovers who demand high quality without the luxury markups. Every piece is crafted with comfortable fabrics made to survive daily motion.</p>
+                <button class="btn-explore-more">Explore More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Newsletter Section -->
+    <section id="contact">
+        <div class="newsletter-box">
+            <h2>Join the CHAPZ Club</h2>
+            <p>Subscribe to get exclusive drops, sales alerts, and 10% off your first purchase.</p>
+            <form id="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3><i class="fas fa-shirt"></i> CHAPZ-HUB</h3>
+                <p>Your ultimate plug for urban fashion, daily essentials, and streetwear trends.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#products">Shop</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="#products">Men's Apparel</a></li>
+                    <li><a href="#products">Women's Apparel</a></li>
+                    <li><a href="#products">Footwear</a></li>
+                    <li><a href="#products">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CHAPZ-HUB. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
