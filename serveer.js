@@ -7,9 +7,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
+app.use(session({
+    secret: 'chapz_hub_secret_key',
+    resave: false,
+    saveUninitialized: true
+}));
 
 // Initialize SQLite Database
 const db = new sqlite3.Database('./chapz_hub.db', (err) => {
